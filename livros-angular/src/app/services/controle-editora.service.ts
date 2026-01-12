@@ -7,7 +7,7 @@ import { Editora } from '../models/editora';
   providedIn: 'root'
 })
 export class ControleEditoraService {
-  
+
   private editoras: Editora[] = [
     new Editora(1, 'Rocco'),
     new Editora(2, 'Intrínseca'),

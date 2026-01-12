@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ControleLivrosService } from '../services/controle-livros.service';
+import { ControleEditoraService } from '../services/controle-editora.service';
 import { Livro } from '../models/livro';
 import { Editora } from '../models/editora';
-import { ControleEditoraService } from '../services/controle-editora.service';
 
 @Component({
   selector: 'app-livro-lista',
@@ -10,25 +10,25 @@ import { ControleEditoraService } from '../services/controle-editora.service';
   templateUrl: './livro-lista.component.html',
   styleUrls: ['./livro-lista.component.css']
 })
-
 export class LivroListaComponent implements OnInit {
-  livros: Livro[] = [];
-  editoras: Editora[] = [];
-  constructor(private controleLivros: ControleLivrosService,
-    private controleEditoras: ControleEditoraService) { }
+  public livros: Livro[] = [];
+  public editoras: Editora[] = [];
+
+  constructor(
+    private servEditora: ControleEditoraService,
+    private servLivros: ControleLivrosService
+  ) { }
 
   ngOnInit(): void {
-    this.livros = this.controleLivros.obterLivros();
-    this.editoras = this.controleEditoras.getEditoras();
-    console.log("Livros carregados: ", this.livros);
-    console.log("Editoras carregadas: ", this.editoras);
+    this.editoras = this.servEditora.getEditoras();
+    this.livros = this.servLivros.obterLivros();
   }
 
-  getNomeEditora(codEditora: number): string {
-    return this.controleEditoras.getNomeEditora(codEditora);
+  excluir = (codigo: number): void => {
+    this.servLivros.excluir(codigo);
+    this.livros = this.servLivros.obterLivros();
   }
 
-  getNomeAutor(codigo: number): string[] {
-    return this.controleLivros.getNomeAutor(codigo);
-  }
+  obterNome = (codEditora: number): string =>
+    this.servEditora.getNomeEditora(codEditora);
 }
