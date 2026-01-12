@@ -1,0 +1,22 @@
+.lista-livros { list-style: none; padding: 0; margin: 0; }
+
+.livro-item { margin-bottom: 1rem; }
+
+.livro-titulo {
+  font-weight: 600;
+  color: #222;
+}
+
+.livro-autores {
+  font-weight: 400;
+  color: #555;
+  margin-left: 0.25rem;
+}
+
+.livro-resumo {
+  margin-left: 1.25rem;
+  margin-top: 0.25rem;
+  color: #444;
+  font-style: italic;
+  font-size: 0.95em;
+}

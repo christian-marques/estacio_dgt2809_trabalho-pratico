@@ -1,0 +1,13 @@
+<h2>Teste de Lista de Livros e Editoras</h2>
+
+<ul class="lista-livros">
+  <li *ngFor="let livro of livros">
+    <div class="livro-titulo">
+        {{ livro.codigo }} - {{ livro.titulo }} (Editora: {{ getNomeEditora(livro.codEditora) }}) - Autores : {{ getNomeAutor(livro.codigo).join(', ') }}
+    </div>
+
+    <div *ngIf="livro.resumo" class="livro-resumo">
+        {{ livro.resumo }}
+    </div>
+  </li>
+</ul>
