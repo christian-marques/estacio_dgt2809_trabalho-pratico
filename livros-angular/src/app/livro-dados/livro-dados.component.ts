@@ -1,11 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Livro } from '../models/livro';
+import { Editora } from '../models/editora';
+
+import { ControleLivrosService } from '../services/controle-livros.service';
+import { ControleEditoraService } from '../services/controle-editora.service';
 
 @Component({
   selector: 'app-livro-dados',
   standalone: false,
   templateUrl: './livro-dados.component.html',
-  styleUrl: './livro-dados.component.css'
+  styleUrls: ['./livro-dados.component.css']
 })
-export class LivroDadosComponent {
+export class LivroDadosComponent implements OnInit {
 
+  livro: Livro = new Livro();
+  autoresForm: string = '';
+  editoras: Editora[] = [];
+
+  constructor(
+    private servLivros: ControleLivrosService,
+    private servEditora: ControleEditoraService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.editoras = this.servEditora.getEditoras();
+  }
+
+  incluir = (): void => {
+    this.livro.autores = this.autoresForm.split('\n');
+    this.servLivros.incluir(this.livro);
+    this.router.navigateByUrl('/lista');
+  }
 }
